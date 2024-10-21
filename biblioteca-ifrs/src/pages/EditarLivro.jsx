@@ -15,7 +15,7 @@ const EditarLivro = () => {
                 setValue('title', response.data.title);
                 setValue('description', response.data.description);
             } catch (error) {
-                console.error('Erro ao buscar o livro:', error); // Trata erros ao buscar o livro
+                console.error('Erro ao buscar o livro:', error);
             }
         };
         fetchLivro();
@@ -24,10 +24,10 @@ const EditarLivro = () => {
     const onSubmit = async (data) => {
         try {
             const response = await api.put(`/${id}`, data);
-            console.log('Status:', response.status); // Imprime o status no console
-            navigate(`/livro/${id}`); // Navega para a página do livro após a edição
+            console.log('Status:', response.status);
+            navigate(`/livro/${id}`);
         } catch (error) {
-            console.error('Erro ao editar o livro:', error); // Trata erros e imprime no console
+            console.error('Erro ao editar o livro:', error); 
         }
     };
 
