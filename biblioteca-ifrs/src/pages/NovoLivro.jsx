@@ -7,8 +7,13 @@ const NovoLivro = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        await api.post('/', data);
-        navigate('/');
+        try {
+            const response = await api.post('/', data);
+            console.log('Status:', response.status); // Imprime o status no console
+            navigate('/'); // Navega para a página inicial após o sucesso
+        } catch (error) {
+            console.error('Erro ao adicionar o livro:', error); // Trata erros e imprime no console
+        }
     };
 
     return (

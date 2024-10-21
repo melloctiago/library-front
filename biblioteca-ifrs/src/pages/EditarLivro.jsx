@@ -10,16 +10,25 @@ const EditarLivro = () => {
 
     useEffect(() => {
         const fetchLivro = async () => {
-            const response = await api.get(`/${id}`);
-            setValue('title', response.data.title);
-            setValue('description', response.data.description);
+            try {
+                const response = await api.get(`/${id}`);
+                setValue('title', response.data.title);
+                setValue('description', response.data.description);
+            } catch (error) {
+                console.error('Erro ao buscar o livro:', error); // Trata erros ao buscar o livro
+            }
         };
         fetchLivro();
     }, [id, setValue]);
 
     const onSubmit = async (data) => {
-        await api.put(`/${id}`, data);
-        navigate(`/livro/${id}`);
+        try {
+            const response = await api.put(`/${id}`, data);
+            console.log('Status:', response.status); // Imprime o status no console
+            navigate(`/livro/${id}`); // Navega para a página do livro após a edição
+        } catch (error) {
+            console.error('Erro ao editar o livro:', error); // Trata erros e imprime no console
+        }
     };
 
     return (

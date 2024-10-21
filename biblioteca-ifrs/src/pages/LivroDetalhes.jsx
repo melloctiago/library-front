@@ -8,8 +8,12 @@ const LivroDetalhes = () => {
     const [livro, setLivro] = useState(null);
 
     const fetchLivro = async () => {
-        const response = await api.get(`/${id}`);
-        setLivro(response.data);
+        try {
+            const response = await api.get(`/${id}`);
+            setLivro(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar o livro:', error); // Trata erros ao buscar o livro
+        }
     };
 
     useEffect(() => {
@@ -17,8 +21,13 @@ const LivroDetalhes = () => {
     }, [id]);
 
     const handleDelete = async () => {
-        await api.delete(`/${id}`);
-        navigate('/');
+        try {
+            const response = await api.delete(`/${id}`);
+            console.log('Status:', response.status); // Imprime o status no console
+            navigate('/'); // Navega para a página inicial após a deleção
+        } catch (error) {
+            console.error('Erro ao deletar o livro:', error); // Trata erros e imprime no console
+        }
     };
 
     if (!livro) return <p>Carregando...</p>;
